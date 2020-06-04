@@ -2,14 +2,14 @@
 // https://github.com/fausto-luna/Exercici-Leaflet-2-Filtres-API/blob/master/script.js
 var map = L.map('mapid',{ maxZoom: 17 }).on('load', onMapLoad).setView([41.400, 2.206], 9);
 var tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
-//en el clusters almaceno todos los markers
+// loading all markers in cluster
 let markers = L.markerClusterGroup(); // https://github.com/Leaflet/Leaflet.markercluster
 let data_markers = [];
 // ============================= onMapLoad ============================= //
 function onMapLoad() {
 	console.log("Mapa cargado");
-	//FASE 3.1
-	// 1) Relleno el data_markers con una petición a la api
+	//PHASE 3.1
+	// 1) Loading data_markers via API request
 	var kind_food_selector = $('#kind_food_selector');
 	console.log('select OK');
 	$.ajax({
@@ -45,7 +45,7 @@ function onMapLoad() {
 		for (i = 0; i < kindsFood.length; i++){
 			kind_food_selector.append(`<option value="${kindsFood[i]}">${kindsFood[i]}</option>`);
 		}
-		// 3) Llamo a la función para --> render_to_map(data_markers, 'all'); <-- para mostrar restaurantes en el mapa
+		// 3) Calling render_to_map(data_markers, 'all'); to show markers on map
 		render_to_map(data_markers, 'all' );
 		console.log('rendered to map');
 		}
@@ -58,10 +58,10 @@ $('#kind_food_selector').on('change', function() {
 });
 // ============================= render_to_map ============================= //
 function render_to_map(data_markers,filter){
-	//FASE 3.2
-	// 1) Limpio todos los marcadores
+	// PHASE 3.2
+	// 1) Clearing all markers
 	markers.clearLayers(); // https://github.com/Leaflet/Leaflet.markercluster#bulk-adding-and-removing-markers
-	// 2) Realizo un bucle para decidir que marcadores cumplen el filtro, y los agregamos al mapa
+	// 2) Looping and filtering markers
 	for (i = 0; i < data_markers.length; i++){
 		for (j = 0; j < data_markers[i].kindFood.length; j++){
 			if(data_markers[i].kindFood[j] == filter || filter == 'all'){
