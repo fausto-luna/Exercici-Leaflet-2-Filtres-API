@@ -14,7 +14,7 @@ function onMapLoad() {
 	console.log('select OK');
 	$.ajax({
 		type: 'GET',
-	 	url: 'http://192.168.64.2/mapa/api/apiRestaurants.php',
+	 	url: 'http://localhost/mapa/api/apiRestaurants.php',
 	 	// data: data_markers,
 	 	// dataType: 'json',
 	 	success: function(data){
